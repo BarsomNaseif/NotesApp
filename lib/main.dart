@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:notes_app/cubits/add_note_cubit.dart';
+import 'package:notes_app/cubits/addCubits/add_note_cubit.dart';
+import 'package:notes_app/cubits/notesCubits/notes_cubits.dart';
 import 'package:notes_app/model/note_model.dart';
 import 'package:notes_app/simple_block_observer.dart';
 import 'package:notes_app/views/constnts.dart';
@@ -26,6 +27,9 @@ class NotesApp extends StatelessWidget {
       providers: [
         BlocProvider<AddNoteCubit>(
           create: (context) => AddNoteCubit(),
+        ),
+          BlocProvider<NoteCubit>(
+          create: (context) => NoteCubit(),
         )
       ],
       child: MaterialApp(

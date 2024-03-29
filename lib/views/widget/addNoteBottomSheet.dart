@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:notes_app/cubits/add_note_state.dart';
+import 'package:notes_app/cubits/addCubits/add_note_state.dart';
 import 'package:notes_app/model/note_model.dart';
 import 'package:notes_app/views/constnts.dart';
 import 'package:notes_app/views/widget/customTextForm.dart';
 
-import '../../cubits/add_note_cubit.dart';
+import '../../cubits/addCubits/add_note_cubit.dart';
 
 class AddNoteBottomSheet extends StatelessWidget {
   const AddNoteBottomSheet({super.key});
@@ -14,20 +15,23 @@ class AddNoteBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16),
-      child:
-          BlocConsumer<AddNoteCubit, AddNoteState>(listener: (context, state) {
-        if (state is AddNoteSuccess) {
-          Navigator.pop(context);
-        }
-        if (state is AddNoteError) {
-          print("Error   : ${state.error}");
-        }
-      }, builder: (context, state) {
-        return SingleChildScrollView(child: const AddNoteForm());
-      }),
-    );
+    return BlocConsumer<AddNoteCubit, AddNoteState>(listener: (context, state) {
+            if (state is AddNoteSuccess) {
+    Navigator.pop(context);
+            }
+            if (state is AddNoteError) {
+    print("Error   : ${state.error}");
+            }
+          }, builder: (context, state) {
+            return Padding(
+    padding:  EdgeInsets.only(
+      left: 16,
+      right: 16,
+      bottom: MediaQuery.of(context).viewInsets.bottom
+    ),
+    child: SingleChildScrollView(child: const AddNoteForm()),
+            );
+          });
   }
 }
 
@@ -69,8 +73,6 @@ class _AddNoteFormState extends State<AddNoteForm> {
             maxLines: 5,
             onSaved: (v) {
               subTitle = v;
-              print(subTitle);
-              print('##############');
             },
           ),
           const SizedBox(
